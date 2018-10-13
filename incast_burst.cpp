@@ -18,12 +18,14 @@ class sender_node : public omnetpp::cSimpleModule
   protected:
     // The following redefined virtual function holds the algorithm.
     virtual void initialize() override;
+    virtual void handleMessage(cMessage *msg) override;
 };
 
 class receiver_node : public omnetpp::cSimpleModule
 {
   protected:
     // The following redefined virtual function holds the algorithm.
+    virtual void initialize() override;
     virtual void handleMessage(cMessage *msg) override;
 };
 
@@ -33,12 +35,24 @@ Define_Module(sender_node);
 
 void sender_node::initialize()
 {
-    // Initialize is called at the beginning of the simulation.
-    // To bootstrap the tic-toc-tic-toc process, one of the modules needs
-    // to send the first message. Let this be `tic'.
-    cMessage *msg = new cMessage(getName());
-    usleep(5);
+
+}
+
+void sender_node::handleMessage(cMessage *msg)
+{
     send(msg, "out");
+}
+
+void receiver_node::initialize()
+{
+    cMessage *msg1 = new cMessage(getName());
+    send(msg1, "out1");
+    cMessage *msg2 = new cMessage(getName());
+    send(msg2, "out2");
+    cMessage *msg3 = new cMessage(getName());
+    send(msg3, "out3");
+    cMessage *msg4 = new cMessage(getName());
+    send(msg4, "out4");
 }
 
 void receiver_node::handleMessage(cMessage *msg)
@@ -47,4 +61,13 @@ void receiver_node::handleMessage(cMessage *msg)
     // at the module. Here, we just send it to the other module, through
     // gate `out'. Because both `tic' and `toc' does the same, the message
     // will bounce between the two.
+    if (strcmp(msg->getArrivalGate()->getName(), "in1") == 0) {
+        send(msg, "out1");
+    } else if (strcmp(msg->getArrivalGate()->getName(), "in2") == 0) {
+        send(msg, "out2");
+    } else if (strcmp(msg->getArrivalGate()->getName(), "in3") == 0) {
+        send(msg, "out3");
+    } else if (strcmp(msg->getArrivalGate()->getName(), "in4") == 0) {
+        send(msg, "out4");
+    }
 }
