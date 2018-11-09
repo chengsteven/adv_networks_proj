@@ -18,22 +18,28 @@ import inet.node.inet.StandardHost;
 import inet.node.inet.Router;
 import inet.node.ethernet.EtherSwitch;
 import inet.node.ethernet.Eth1G;
+import inet.common.queue.IOutputQueue;
+import inet.common.misc.ThruputMeter;
+
 
 
 network WiredNetworkExample
 {
     parameters:
-        int numClients; // number of clients in the network
+        int numServers; // number of clients in the network
+
     submodules:
-        configurator: Ipv4NetworkConfigurator; // network autoconfiguration
-        server: StandardHost; // predefined standard host
-        router: Router; // predefined router
-        switch: EtherSwitch; // predefined ethernet switch
-        client[numClients]: StandardHost;
+        configurator: Ipv4NetworkConfigurator;
+        client: thruput_host { // predefined standard host
+            @display("p=178,94");
+        }
+        // router: Router; // predefined router
+        switch: EtherSwitch;
+        server[numServers]: thruput_host;
     connections: // network level connections
-        router.pppg++ <--> { datarate = 1Gbps; } <--> server.pppg++; // PPP
-        switch.ethg++ <--> Eth1G <--> router.ethg++; // bidirectional ethernet
-        for i=0..numClients-1 {
-            client[i].ethg++ <--> Eth1G <--> switch.ethg++; // ethernet
+        // router.pppg++ <--> { datarate = 10Gbps; } <--> server.pppg++; // PPP
+        switch.ethg++ <--> Eth1G <--> client.ethg++; // bidirectional ethernet
+        for i=0..numServers-1 {
+            server[i].ethg++ <--> Eth1G <--> switch.ethg++; // ethernet
         }
 }
