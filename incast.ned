@@ -33,11 +33,9 @@ network WiredNetworkExample
         client: thruput_host { // predefined standard host
             @display("p=178,94");
         }
-        // router: Router; // predefined router
         switch: EtherSwitch;
         server[numServers]: thruput_host;
     connections: // network level connections
-        // router.pppg++ <--> { datarate = 10Gbps; } <--> server.pppg++; // PPP
         switch.ethg++ <--> Eth1G <--> client.ethg++; // bidirectional ethernet
         for i=0..numServers-1 {
             server[i].ethg++ <--> Eth1G <--> switch.ethg++; // ethernet

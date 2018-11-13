@@ -48,21 +48,14 @@ module thruput_transport_layer extends NetworkLayerNodeBase
                 @display("p=750,296;b=1000,5,,,,1");
         }
 
-        thruput_meter_from_tcp: ThruputMeter {
-            @display("p=913.49994,239.4");
-        }
-        thruput_meter_to_tcp: ThruputMeter {
-            @display("p=1157.625,225.22499");
-        }
-
     connections allowunconnected:
         udp.ipOut --> tn.in++ if hasUdp;
         udp.ipIn <-- tn.out++ if hasUdp;
 
-//        tcp.ipOut --> thruput_meter_from_tcp.in if hasTcp;
-//       	thruput_meter_from_tcp.out --> tn.in++ if hasTcp;
-//        tcp.ipIn <-- thruput_meter_to_tcp.out if hasTcp;
-//        thruput_meter_to_tcp.in <-- tn.out++ if hasTcp;
+        //        tcp.ipOut --> thruput_meter_from_tcp.in if hasTcp;
+        //       	thruput_meter_from_tcp.out --> tn.in++ if hasTcp;
+        //        tcp.ipIn <-- thruput_meter_to_tcp.out if hasTcp;
+        //        thruput_meter_to_tcp.in <-- tn.out++ if hasTcp;
         tcp.ipOut --> tn.in++ if hasTcp;
         tcp.ipIn <-- tn.out++ if hasTcp;
 
