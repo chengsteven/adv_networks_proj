@@ -1,3 +1,5 @@
 results/
 General.anf
 .computed/*
+*.qtenvrc
+*.settings/language.settings.xml
