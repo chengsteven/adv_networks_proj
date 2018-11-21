@@ -22,7 +22,7 @@ import inet.transportlayer.contract.IUdp;
 import inet.node.base.NetworkLayerNodeBase;
 import inet.common.misc.ThruputMeter;
 
-module thruput_transport_layer extends NetworkLayerNodeBase
+module incast_transport_layer extends incast_network_layer_node_base
 {
     parameters:
         bool hasUdp = default(true);

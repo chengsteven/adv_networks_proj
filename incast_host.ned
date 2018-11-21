@@ -20,7 +20,7 @@ import inet.common.MessageDispatcher;
 import inet.node.base.TransportLayerNodeBase;
 import inet.common.misc.ThruputMeter;
 
-module thruput_host extends thruput_transport_layer
+module incast_host extends incast_transport_layer
 {
     parameters:
         int numApps = default(0);

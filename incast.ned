@@ -22,7 +22,6 @@ import inet.common.queue.IOutputQueue;
 import inet.common.misc.ThruputMeter;
 
 
-
 network WiredNetworkExample
 {
     parameters:
@@ -30,11 +29,11 @@ network WiredNetworkExample
 
     submodules:
         configurator: Ipv4NetworkConfigurator;
-        client: thruput_host { // predefined standard host
+        client: incast_host { // predefined standard host
             @display("p=178,94");
         }
         switch: EtherSwitch;
-        server[numServers]: thruput_host;
+        server[numServers]: incast_host;
     connections: // network level connections
         switch.ethg++ <--> Eth1G <--> client.ethg++; // bidirectional ethernet
         for i=0..numServers-1 {

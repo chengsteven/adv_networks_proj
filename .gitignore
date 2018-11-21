@@ -3,3 +3,5 @@ General.anf
 .computed/*
 *.qtenvrc
 *.settings/language.settings.xml
+.DS_Store
+out/*
