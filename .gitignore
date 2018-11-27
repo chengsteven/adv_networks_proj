@@ -5,3 +5,4 @@ General.anf
 *.settings/language.settings.xml
 .DS_Store
 out/*
+*.cproject
