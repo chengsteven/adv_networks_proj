@@ -13,20 +13,18 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 //
 
-import inet.networklayer.configurator.ipv4.Ipv4NetworkConfigurator;
 import inet.node.inet.StandardHost;
 import inet.node.inet.Router;
 import inet.node.ethernet.EtherSwitch;
 import inet.node.ethernet.Eth1G;
 import inet.common.queue.IOutputQueue;
-import inet.common.misc.ThruputMeter;
+import inet.networklayer.configurator.ipv4.Ipv4NetworkConfigurator;
 
 
 network WiredNetworkExample
 {
     parameters:
         int numServers; // number of clients in the network
-
     submodules:
         configurator: Ipv4NetworkConfigurator;
         client: incast_host { // predefined standard host
